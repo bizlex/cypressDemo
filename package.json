@@ -11,7 +11,7 @@
     "cleanup": "rm -fr ./results",
     "merge_reports": "mochawesome-merge ./results/mochawesome_results/*.json > ./results/mochawesome_results/output.json",
     "mochawesome_report": "marge --reportDir ./results/mochawesome-html-report -t Cypress_Test_Report -p Cypress_HMTL_Report -f Cypress_HMTL_Report --charts true ./results/mochawesome_results/output.json",
-    "cy_dashboard": "cypress run",
+    "cy_dashboard": "cypress run --spec \"cypress/e2e/2-advanced-examples/actions.cy.js,cypress/e2e/2-advanced-examples/files.cy.js\"",
     "cy:report": "npm run cleanup && npm run cy_dashboard && npm run merge_reports && npm run mochawesome_report"
   }
 }
