@@ -26,7 +26,7 @@ jobs:
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            /bin/bash -c "npm run cy:report"
+            /bin/bash -c "npm run cleanup && npm run cy_dashboard && npm run merge_reports && npm run mochawesome_report"
 
       - name: Archive Mochawesome HTML Report
         if: always()
