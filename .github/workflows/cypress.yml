@@ -17,10 +17,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Cypress Docker image
-        uses: docker://cypress/included:13.10.0
-        with:
-          args: >
-            bash -c "npm ci && npx cypress run"
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/e2e \
+            -w /e2e \
+            cypress/included:13.10.0 \
+            npx cypress run --config-file cypress.config.js
 
       - name: Archive Mochawesome Report
         if: always()
