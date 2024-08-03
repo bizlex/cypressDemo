@@ -29,6 +29,9 @@ jobs:
 #            npx cypress run --config-file cypress.config.js
             npm run cy:report
 
+#      - name: Fix permissions on results directory
+#        run: sudo chown -R $USER:$USER ./results
+#
 #      - name: Merge Mochawesome Reports
 #        run: npm run merge_reports
 #
