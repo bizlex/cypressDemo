@@ -20,17 +20,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests with Mochawesome reporting
+      - name: Run Cypress tests inside Docker
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            /bin/bash -c "npm run cleanup && npm run cy_dashboard && npm run merge_reports && npm run mochawesome_report"
-        env:
-          # Adding DISPLAY variable to handle potential X connection issues
-          DISPLAY: ":99.0"
-          CI: true
+            npx cypress run --config-file cypress.config.js
+
+      - name: Merge Mochawesome Reports
+        run: npm run merge_reports
+
+      - name: Generate Mochawesome HTML Report
+        run: npm run mochawesome_report
 
       - name: Archive Mochawesome HTML Report
         if: always()
