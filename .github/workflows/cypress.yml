@@ -27,6 +27,10 @@ jobs:
             -w /e2e \
             cypress/included:13.10.0 \
             /bin/bash -c "npm run cleanup && npm run cy_dashboard && npm run merge_reports && npm run mochawesome_report"
+        env:
+          # Adding DISPLAY variable to handle potential X connection issues
+          DISPLAY: ":99.0"
+          CI: true
 
       - name: Archive Mochawesome HTML Report
         if: always()
