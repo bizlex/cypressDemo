@@ -26,7 +26,16 @@ jobs:
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            npm run cy:report
+            npx cypress run --spec "cypress/e2e/2-advanced-examples/actions.cy.js"
+
+      - name: Fix permissions on results directory
+        run: sudo chown -R $USER:$USER ./results
+
+      - name: Merge Mochawesome Reports
+        run: npm run merge_reports
+
+      - name: Generate Mochawesome HTML Report
+        run: npm run mochawesome_report
 
       - name: Archive Mochawesome HTML Report
         if: always()
