@@ -26,13 +26,14 @@ jobs:
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            npx cypress run --config-file cypress.config.js
+#            npx cypress run --config-file cypress.config.js
+            npm run cy:report
 
-      - name: Merge Mochawesome Reports
-        run: npm run merge_reports
-
-      - name: Generate Mochawesome HTML Report
-        run: npm run mochawesome_report
+#      - name: Merge Mochawesome Reports
+#        run: npm run merge_reports
+#
+#      - name: Generate Mochawesome HTML Report
+#        run: npm run mochawesome_report
 
       - name: Archive Mochawesome HTML Report
         if: always()
