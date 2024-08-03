@@ -1,6 +1,7 @@
 name: Cypress Tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -19,17 +20,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Use Cypress Docker image
+      - name: Run Cypress tests with Mochawesome reporting
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            npx cypress run --config-file cypress.config.js
+            /bin/bash -c "npm run cy:report"
 
-      - name: Archive Mochawesome Report
+      - name: Archive Mochawesome HTML Report
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: mochawesome-report
-          path: results/mochawesome_results/
+          name: mochawesome-html-report
+          path: results/mochawesome-html-report/
