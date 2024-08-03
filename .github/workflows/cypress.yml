@@ -26,7 +26,7 @@ jobs:
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            npx cypress run --spec "cypress/e2e/2-advanced-examples/actions.cy.js"
+            npx cypress run
 
       - name: Fix permissions on results directory
         run: sudo chown -R $USER:$USER ./results
