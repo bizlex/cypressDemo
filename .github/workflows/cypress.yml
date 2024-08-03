@@ -16,18 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Use Cypress Docker image
+        uses: docker://cypress/included:12.8.1
         with:
-          node-version: '22.2.0'
+          args: >
+            bash -c "npm ci && npx cypress run"
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
+      - name: Archive Mochawesome Report
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
-          working-directory: ./
-          config-file: cypress.config.js
-        env:
-          CI: true
+          name: mochawesome-report
+          path: results/mochawesome_results/
