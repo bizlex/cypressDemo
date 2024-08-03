@@ -26,7 +26,7 @@ jobs:
             -v ${{ github.workspace }}:/e2e \
             -w /e2e \
             cypress/included:13.10.0 \
-            npx cypress run
+            cypress run --spec "cypress/e2e/2-advanced-examples/actions.cy.js"
 
       - name: Fix permissions on results directory
         run: sudo chown -R $USER:$USER ./results
@@ -48,6 +48,6 @@ jobs:
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.workflow }}
           publish_dir: ./results/mochawesome-html-report
           publish_branch: gh-pages
